@@ -1,0 +1,93 @@
+*cxo.txt* functionality for Custom Xdg-Open with support 
+for different file formats.
+
+Author:  Robin Camarasa <http://robincamarasa.github.io>
+
+                          ______  _____  ~
+                         / ___\ \/ / _ \ ~
+                        | |    \  / | | |~
+                        | |___ /  \ |_| |~
+                         \____/_/\_\___/ ~
+                  
+
+The main idea of this plugin is to call |system| in the background
+to open documents while staying in vim.
+
+===============================================================================
+CONTENTS                                              *contextual-text-objects*
+        
+        0. License .................................. |cto-license|
+        1. Xfiles per filetype ...................... |g:xfile|
+        2. Xfiles programs .......................... |g:xdg_open|
+        3. CXO Mappings ............................. |cxo-mappings|
+
+===============================================================================
+Section 0: License                                    *cto-license*
+
+
+Copyright 2022 Robin Camarasa ~
+
+Permission is hereby granted, free of charge, to any person obtaining a copy ~
+of this software and associated documentation files (the "Software"), to deal~
+in the Software without restriction, including without limitation the rights ~
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell ~
+copies of the Software, and to permit persons to whom the Software is ~
+furnished to do so, subject to the following conditions:~
+
+The above copyright notice and this permission notice shall be included in ~
+all copies or substantial portions of the Software.~
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR ~
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF ~
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN ~
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY ~
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT~
+OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE ~
+USE OR OTHER DEALINGS IN THE SOFTWARE.~
+
+===============================================================================
+Section 1: Xfiles per filetype                        *g:xfile*
+
+For each |FileType| the program associate an x file contained in |g:xfile|
+
+            FileType                    g:xfile ~
+            tex                         `expand('%:r') .. '.pdf'` 
+                                        (see |expand|)
+            md                          `expand('%:r') .. '.pdf'` 
+                                        (see |expand|)
+            scad                        `expand('%')`
+                                        (see |expand|)
+
+===============================================================================
+Section 2: Xfiles programs                            *g:xdg_open*
+
+The variable |g:xdg_open| associates a |FileType| to a program. The default
+value is the following:
+
+let g:xdg_open = { ~
+            \"pdf": "zathura", ~
+            \"html": "firefox", ~
+            \"doc": "onlyoffice-desktopeditors", ~
+            \"docx": "onlyoffice-desktopeditors", ~
+            \"png": "sxiv", ~
+            \"jpeg": "sxiv", ~
+            \"jpg": "sxiv", ~
+            \"svg": "inkscape", ~
+            \"gz": "itksnap", ~
+            \"nii": "itksnap", ~
+            \"scad": "openscad", ~
+            \} ~
+
+Note that overriding |g:xdg_open| in your `.vimrc` will allow you to choose your
+own programs.
+
+===============================================================================
+Section 3: CXO mappings                               *cxo-mappings*
+
+The plugin add the two following mappings.
+
+                                                      *leader_p*
+<leader>p               Open |g:xfile| with |g:xdg_open| program
+
+                                                      *leader_P*
+<leader>P               Edit |g:xfile| and open it with |g:xdg_open| program
