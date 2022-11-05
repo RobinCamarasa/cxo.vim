@@ -14,7 +14,7 @@ The main idea of this plugin is to call |system| in the background
 to open documents while staying in vim.
 
 ===============================================================================
-CONTENTS                                              *contextual-text-objects*
+CONTENTS                                              *custom-xdg-open*
         
         0. License .................................. |cto-license|
         1. Xfiles per filetype ...................... |g:xfile|
